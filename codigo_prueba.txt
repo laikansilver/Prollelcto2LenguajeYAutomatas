@@ -1,0 +1,26 @@
+Inicio pagina
+    linea simple
+    titulo "Página de reportes de ahorro"
+    linea simple
+    menu opciones
+    seccion imagenes
+        logocorporativo.jpg
+        lema.jpg
+        marca.jpg
+    texto "Bienvenidos a nuestro sistema de gestión empresarial. Aquí podrá administrar todos los productos de su empresa de manera eficiente."
+    crud inicio
+        bdd Empresa
+        tabla Productos
+            campo Nombre
+            campo Precio
+            campo Clave
+            campo Descripcion
+            campo Stock
+        fintabla
+    crud fin
+    texto "Gracias por utilizar nuestro sistema. Para más información, consulte la sección de contacto."
+    seccion acercade
+        domicilio: "Av Heroes de Nocupétaro 1234"
+        telefono: "4431234567"
+        email: "contacto@empresa.com"
+fin pagina

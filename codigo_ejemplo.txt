@@ -1,0 +1,26 @@
+Inicio pagina
+    linea simple
+    titulo "Página de Reportes de Ahorro"
+    linea simple
+    menu opciones
+        opcion "Inicio" "#home"
+        opcion "Productos" "#productos"
+        opcion "Contacto" "#contacto"
+    seccion imagenes logocorporativo.jpg lema.png marca.jpg
+    texto "Este es un texto que se insertará en la página. Bienvenido a nuestro sistema de gestión de productos."
+    linea doble
+    crud inicio
+        bdd Empresa
+        tabla Productos
+            campo Nombre
+            campo Precio
+            campo Clave
+            campo Descripcion
+        fintabla
+    crud fin
+    linea simple
+    seccion acercade
+        domicilio: "Av Heroes de Nocupétaro 1234"
+        telefono: "4431234567"
+        email: "contacto@empresa.com"
+fin pagina

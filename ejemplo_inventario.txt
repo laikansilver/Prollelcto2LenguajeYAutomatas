@@ -1,0 +1,28 @@
+Inicio pagina
+    titulo "Sistema de Inventario Online"
+    linea doble
+    menu opciones
+    texto "Bienvenido al sistema de gestión de inventario. Este sistema le permite administrar todos sus productos de manera eficiente y segura."
+    seccion imagenes
+        logo_empresa.jpg
+        banner_productos.png
+    crud inicio
+        bdd TiendaOnline
+        tabla Inventario
+            campo CodigoProducto
+            campo NombreProducto
+            campo Categoria
+            campo PrecioCompra
+            campo PrecioVenta
+            campo Stock
+            campo Proveedor
+            campo FechaIngreso
+        fintabla
+    crud fin
+    linea simple
+    texto "Todos los datos son actualizados en tiempo real. Para soporte técnico, contacte al administrador."
+    seccion acercade
+        domicilio: "Calle Madero 456, Centro, Morelia"
+        telefono: "443-987-6543"
+        email: "soporte@tiendaonline.com"
+fin pagina

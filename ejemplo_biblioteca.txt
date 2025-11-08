@@ -1,0 +1,36 @@
+Inicio pagina
+    titulo "Biblioteca Virtual"
+    linea simple
+    menu opciones
+    seccion imagenes
+        biblioteca.jpg
+        libros.png
+        lectura.jpg
+    texto "Consulta nuestro catálogo completo de libros disponibles. Sistema de préstamos en línea disponible 24/7."
+    crud inicio
+        bdd BibliotecaDB
+        tabla Libros
+            campo ISBN
+            campo Titulo
+            campo Autor
+            campo Editorial
+            campo AñoPublicacion
+            campo Categoria
+            campo Disponibles
+        fintabla
+    crud fin
+    crud inicio
+        bdd BibliotecaDB
+        tabla Usuarios
+            campo NumeroSocio
+            campo Nombre
+            campo Email
+            campo Telefono
+            campo FechaRegistro
+        fintabla
+    crud fin
+    seccion acercade
+        domicilio: "Av Universidad 789, Ciudad Universitaria"
+        telefono: "443-111-2222"
+        email: "info@biblioteca.edu.mx"
+fin pagina
