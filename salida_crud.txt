@@ -1,16 +1,11 @@
 === ESPECIFICACIÓN CRUD ===
 
-Base de Datos: TiendaOnline
-Tabla: Inventario
+Base de Datos: Empresa
+Tabla: Productos
 Campos:
-  - CodigoProducto
-  - NombreProducto
-  - Categoria
-  - PrecioCompra
-  - PrecioVenta
-  - Stock
-  - Proveedor
-  - FechaIngreso
+  - Nombre
+  - Precio
+  - Clave
 
 Operaciones requeridas:
   - CREATE (Insertar)
