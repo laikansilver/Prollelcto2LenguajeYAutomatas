@@ -1,0 +1,23 @@
+Inicio pagina
+    linea simple
+    titulo "Galería de Mustangs Clásicos"
+    linea simple
+    menu opciones
+    seccion imagenes
+        Bullitt.jpg
+        eleonor.jpg
+        super_snake.jpg
+    texto "Bienvenidos a nuestra galería de Mustangs clásicos. Estas son algunas de las versiones más icónicas."
+    crud inicio
+        bdd MuseoCochesClasicos
+        tabla Mustangs
+            campo Modelo
+            campo Anio
+            campo Pelicula
+            campo Estado
+        fintabla
+    crud fin
+    seccion acercade
+        domicilio: "Av Heroes de Nocupétaro 1234"
+        telefono: "4431234567"
+fin pagina

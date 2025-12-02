@@ -1,12 +1,14 @@
 === ESPECIFICACIÓN CRUD ===
 
-Base de Datos: MuseoCochesClasicos
-Tabla: Mustangs
+Base de Datos: Catalogo
+Tabla: Promociones
 Campos:
-  - Modelo
-  - Anio
-  - Pelicula
-  - Estado
+  - Titulo
+  - Descripcion
+  - Precio
+  - Descuento
+  - FechaInicio
+  - FechaFin
 
 Operaciones requeridas:
   - CREATE (Insertar)

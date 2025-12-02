@@ -3,7 +3,7 @@ Inicio pagina
     titulo "Galería de Mustangs Clásicos"
     linea simple
     menu opciones
-    seccion imagenes
+    carrusel imagenes
         Bullitt.jpg
         eleonor.jpg
         super_snake.jpg
@@ -12,7 +12,7 @@ Inicio pagina
         bdd MuseoCochesClasicos
         tabla Mustangs
             campo Modelo
-            campo Anio
+            campo Año
             campo Pelicula
             campo Estado
         fintabla

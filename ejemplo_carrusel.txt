@@ -1,0 +1,33 @@
+Inicio pagina
+    titulo "Galería con Carrusel - Showcase Interactivo"
+    linea simple
+    menu opciones
+    
+    texto "Explora nuestra colección de productos destacados"
+    
+    seccion imagenes
+        banner1.jpg
+        banner2.jpg
+        banner3.jpg
+        banner4.jpg
+        banner5.jpg
+    
+    texto "Nuestro catálogo se actualiza constantemente con nuevos productos y ofertas exclusivas."
+    
+    crud inicio
+        bdd Catalogo
+        tabla Promociones
+            campo Titulo
+            campo Descripcion
+            campo Precio
+            campo Descuento
+            campo FechaInicio
+            campo FechaFin
+        fintabla
+    crud fin
+    
+    seccion acercade
+        domicilio: "Centro Comercial Plaza Mayor, Local 45"
+        telefono: "443-987-6543"
+        
+fin pagina
