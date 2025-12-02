@@ -1,0 +1,485 @@
+grammar WebPageLanguage;
+
+@header {
+    import java.io.*;
+    import java.util.List;
+    import java.util.ArrayList;
+}
+
+@members {
+    StringBuilder html = new StringBuilder();
+    StringBuilder css = new StringBuilder();
+    StringBuilder crudSpec = new StringBuilder();
+    String currentDatabase = "";
+    String currentTable = "";
+    List<String> campos = new ArrayList<String>();
+    List<String> imagenes = new ArrayList<String>();
+    boolean tieneCarrusel = false;
+    
+    // Metodo para obtener el HTML generado
+    public String getHTML() {
+        return html.toString();
+    }
+    
+    // Metodo para obtener el CSS generado
+    public String getCSS() {
+        return css.toString();
+    }
+    
+    // Metodo para obtener la especificacion CRUD
+    public String getCRUDSpec() {
+        return crudSpec.toString();
+    }
+    
+    // Metodo para guardar archivos
+    public void guardarArchivos(String baseFileName) {
+        try {
+            // Guardar HTML
+            FileWriter htmlFile = new FileWriter(baseFileName + ".html");
+            htmlFile.write(html.toString());
+            htmlFile.close();
+            
+            // Guardar CSS
+            FileWriter cssFile = new FileWriter(baseFileName + ".css");
+            cssFile.write(css.toString());
+            cssFile.close();
+            
+            // Guardar especificación CRUD
+            if (crudSpec.length() > 0) {
+                FileWriter crudFile = new FileWriter(baseFileName + "_crud.txt");
+                crudFile.write(crudSpec.toString());
+                crudFile.close();
+            }
+            
+            System.out.println("Archivos generados exitosamente:");
+            System.out.println("- " + baseFileName + ".html");
+            System.out.println("- " + baseFileName + ".css");
+            if (crudSpec.length() > 0) {
+                System.out.println("- " + baseFileName + "_crud.txt");
+            }
+        } catch (IOException e) {
+            System.err.println("Error al guardar archivos: " + e.getMessage());
+        }
+    }
+    
+    // Metodo para inicializar CSS base
+    private void inicializarCSS() {
+        css.append("/* CSS Generado Automaticamente */\n\n");
+        css.append("* {\n");
+        css.append("    margin: 0;\n");
+        css.append("    padding: 0;\n");
+        css.append("    box-sizing: border-box;\n");
+        css.append("}\n\n");
+        css.append("body {\n");
+        css.append("    font-family: Arial, sans-serif;\n");
+        css.append("    line-height: 1.6;\n");
+        css.append("    background-color: #f4f4f4;\n");
+        css.append("    padding: 20px;\n");
+        css.append("}\n\n");
+        css.append(".container {\n");
+        css.append("    max-width: 1200px;\n");
+        css.append("    margin: 0 auto;\n");
+        css.append("    background: white;\n");
+        css.append("    padding: 20px;\n");
+        css.append("    box-shadow: 0 0 10px rgba(0,0,0,0.1);\n");
+        css.append("}\n\n");
+        css.append("hr {\n");
+        css.append("    border: none;\n");
+        css.append("    border-top: 2px solid #333;\n");
+        css.append("    margin: 20px 0;\n");
+        css.append("}\n\n");
+        css.append("h1 {\n");
+        css.append("    color: #333;\n");
+        css.append("    text-align: center;\n");
+        css.append("    margin: 20px 0;\n");
+        css.append("}\n\n");
+        css.append(".menu {\n");
+        css.append("    background: #333;\n");
+        css.append("    padding: 10px;\n");
+        css.append("    margin: 20px 0;\n");
+        css.append("}\n\n");
+        css.append(".menu ul {\n");
+        css.append("    list-style: none;\n");
+        css.append("    display: flex;\n");
+        css.append("    justify-content: center;\n");
+        css.append("}\n\n");
+        css.append(".menu li {\n");
+        css.append("    margin: 0 15px;\n");
+        css.append("}\n\n");
+        css.append(".menu a {\n");
+        css.append("    color: white;\n");
+        css.append("    text-decoration: none;\n");
+        css.append("    padding: 5px 10px;\n");
+        css.append("}\n\n");
+        css.append(".menu a:hover {\n");
+        css.append("    background: #555;\n");
+        css.append("}\n\n");
+        css.append(".imagenes {\n");
+        css.append("    display: flex;\n");
+        css.append("    justify-content: center;\n");
+        css.append("    gap: 20px;\n");
+        css.append("    margin: 20px 0;\n");
+        css.append("    flex-wrap: wrap;\n");
+        css.append("}\n\n");
+        css.append(".imagenes img {\n");
+        css.append("    max-width: 300px;\n");
+        css.append("    height: auto;\n");
+        css.append("    border-radius: 5px;\n");
+        css.append("    box-shadow: 0 2px 5px rgba(0,0,0,0.2);\n");
+        css.append("}\n\n");
+        css.append(".texto {\n");
+        css.append("    margin: 20px 0;\n");
+        css.append("    padding: 15px;\n");
+        css.append("    background: #f9f9f9;\n");
+        css.append("    border-left: 4px solid #333;\n");
+        css.append("}\n\n");
+        css.append(".crud-section {\n");
+        css.append("    margin: 30px 0;\n");
+        css.append("    padding: 20px;\n");
+        css.append("    border: 2px solid #ddd;\n");
+        css.append("    border-radius: 5px;\n");
+        css.append("}\n\n");
+        css.append(".acercade {\n");
+        css.append("    margin-top: 40px;\n");
+        css.append("    padding: 20px;\n");
+        css.append("    background: #e9e9e9;\n");
+        css.append("    border-radius: 5px;\n");
+        css.append("}\n\n");
+        css.append(".acercade p {\n");
+        css.append("    margin: 10px 0;\n");
+        css.append("}\n\n");
+        
+        // Estilos para carrusel
+        css.append("/* Carrusel de imagenes */\n");
+        css.append(".carousel-container {\n");
+        css.append("    position: relative;\n");
+        css.append("    max-width: 1000px;\n");
+        css.append("    margin: 30px auto;\n");
+        css.append("    overflow: hidden;\n");
+        css.append("    border-radius: 10px;\n");
+        css.append("    box-shadow: 0 4px 15px rgba(0,0,0,0.3);\n");
+        css.append("}\n\n");
+        css.append(".carousel-slide {\n");
+        css.append("    display: none;\n");
+        css.append("    animation: fade 1s;\n");
+        css.append("}\n\n");
+        css.append(".carousel-slide.active {\n");
+        css.append("    display: block;\n");
+        css.append("}\n\n");
+        css.append(".carousel-slide img {\n");
+        css.append("    width: 100%;\n");
+        css.append("    height: 500px;\n");
+        css.append("    object-fit: cover;\n");
+        css.append("}\n\n");
+        css.append(".carousel-controls {\n");
+        css.append("    position: absolute;\n");
+        css.append("    top: 50%;\n");
+        css.append("    width: 100%;\n");
+        css.append("    display: flex;\n");
+        css.append("    justify-content: space-between;\n");
+        css.append("    transform: translateY(-50%);\n");
+        css.append("}\n\n");
+        css.append(".carousel-btn {\n");
+        css.append("    background: rgba(0,0,0,0.5);\n");
+        css.append("    color: white;\n");
+        css.append("    border: none;\n");
+        css.append("    padding: 15px 20px;\n");
+        css.append("    font-size: 24px;\n");
+        css.append("    cursor: pointer;\n");
+        css.append("    transition: background 0.3s;\n");
+        css.append("}\n\n");
+        css.append(".carousel-btn:hover {\n");
+        css.append("    background: rgba(0,0,0,0.8);\n");
+        css.append("}\n\n");
+        css.append(".carousel-indicators {\n");
+        css.append("    position: absolute;\n");
+        css.append("    bottom: 20px;\n");
+        css.append("    width: 100%;\n");
+        css.append("    text-align: center;\n");
+        css.append("}\n\n");
+        css.append(".carousel-dot {\n");
+        css.append("    display: inline-block;\n");
+        css.append("    width: 12px;\n");
+        css.append("    height: 12px;\n");
+        css.append("    margin: 0 5px;\n");
+        css.append("    background: rgba(255,255,255,0.5);\n");
+        css.append("    border-radius: 50%;\n");
+        css.append("    cursor: pointer;\n");
+        css.append("    transition: background 0.3s;\n");
+        css.append("}\n\n");
+        css.append(".carousel-dot.active {\n");
+        css.append("    background: white;\n");
+        css.append("}\n\n");
+        css.append("@keyframes fade {\n");
+        css.append("    from { opacity: 0.4; }\n");
+        css.append("    to { opacity: 1; }\n");
+        css.append("}\n\n");
+    }
+}
+
+// Regla principal
+pagina
+    :   'Inicio' 'pagina' 
+        { 
+            html.append("<!DOCTYPE html>\n");
+            html.append("<html lang=\"es\">\n");
+            html.append("<head>\n");
+            html.append("    <meta charset=\"UTF-8\">\n");
+            html.append("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
+            html.append("    <title>Página Generada</title>\n");
+            html.append("    <link rel=\"stylesheet\" href=\"pagina.css\">\n");
+            html.append("</head>\n");
+            html.append("<body>\n");
+            html.append("    <div class=\"container\">\n");
+            inicializarCSS();
+        }
+        (elemento)+
+        'fin' 'pagina'
+        {
+            html.append("    </div>\n");
+            
+            // Agregar JavaScript para carrusel si es necesario
+            if (tieneCarrusel) {
+                html.append("    <script>\n");
+                html.append("        let slideIndex = 1;\n");
+                html.append("        showSlides(slideIndex);\n");
+                html.append("        \n");
+                html.append("        // Auto avanzar cada 5 segundos\n");
+                html.append("        setInterval(() => changeSlide(1), 5000);\n");
+                html.append("        \n");
+                html.append("        function changeSlide(n) {\n");
+                html.append("            showSlides(slideIndex += n);\n");
+                html.append("        }\n");
+                html.append("        \n");
+                html.append("        function currentSlide(n) {\n");
+                html.append("            showSlides(slideIndex = n);\n");
+                html.append("        }\n");
+                html.append("        \n");
+                html.append("        function showSlides(n) {\n");
+                html.append("            let slides = document.getElementsByClassName('carousel-slide');\n");
+                html.append("            let dots = document.getElementsByClassName('carousel-dot');\n");
+                html.append("            \n");
+                html.append("            if (n > slides.length) { slideIndex = 1 }\n");
+                html.append("            if (n < 1) { slideIndex = slides.length }\n");
+                html.append("            \n");
+                html.append("            for (let i = 0; i < slides.length; i++) {\n");
+                html.append("                slides[i].classList.remove('active');\n");
+                html.append("            }\n");
+                html.append("            \n");
+                html.append("            for (let i = 0; i < dots.length; i++) {\n");
+                html.append("                dots[i].classList.remove('active');\n");
+                html.append("            }\n");
+                html.append("            \n");
+                html.append("            slides[slideIndex-1].classList.add('active');\n");
+                html.append("            dots[slideIndex-1].classList.add('active');\n");
+                html.append("        }\n");
+                html.append("    </script>\n");
+            }
+            
+            html.append("</body>\n");
+            html.append("</html>\n");
+        }
+    ;
+
+elemento
+    :   linea
+    |   titulo
+    |   menu
+    |   seccionImagenes
+    |   texto
+    |   crud
+    |   seccionAcercaDe
+    ;
+
+linea
+    :   'linea' 'simple'
+        {
+            html.append("        <hr>\n");
+        }
+    |   'linea' 'doble'
+        {
+            html.append("        <hr style=\"border-top: 4px double #333;\">\n");
+        }
+    ;
+
+titulo
+    :   'titulo' STRING
+        {
+            String tituloTexto = $STRING.text;
+            tituloTexto = tituloTexto.substring(1, tituloTexto.length()-1); // Quitar comillas
+            html.append("        <h1>" + tituloTexto + "</h1>\n");
+        }
+    ;
+
+menu
+    :   'menu' 'opciones' 
+        {
+            html.append("        <nav class=\"menu\">\n");
+            html.append("            <ul>\n");
+            html.append("                <li><a href=\"#inicio\">Inicio</a></li>\n");
+            html.append("                <li><a href=\"#productos\">Productos</a></li>\n");
+            html.append("                <li><a href=\"#servicios\">Servicios</a></li>\n");
+            html.append("                <li><a href=\"#contacto\">Contacto</a></li>\n");
+            html.append("            </ul>\n");
+            html.append("        </nav>\n");
+        }
+    ;
+
+seccionImagenes
+    :   'seccion' 'imagenes' 
+        {
+            imagenes.clear();
+        }
+        (imagen)+
+        {
+            // Si hay más de 2 imágenes, crear carrusel
+            if (imagenes.size() > 2) {
+                tieneCarrusel = true;
+                html.append("        <div class=\"carousel-container\">\n");
+                for (int i = 0; i < imagenes.size(); i++) {
+                    String activeClass = (i == 0) ? " active" : "";
+                    html.append("            <div class=\"carousel-slide" + activeClass + "\">\n");
+                    html.append("                <img src=\"" + imagenes.get(i) + "\" alt=\"Imagen " + (i+1) + "\">\n");
+                    html.append("            </div>\n");
+                }
+                html.append("            <div class=\"carousel-controls\">\n");
+                html.append("                <button class=\"carousel-btn\" onclick=\"changeSlide(-1)\">&#10094;</button>\n");
+                html.append("                <button class=\"carousel-btn\" onclick=\"changeSlide(1)\">&#10095;</button>\n");
+                html.append("            </div>\n");
+                html.append("            <div class=\"carousel-indicators\">\n");
+                for (int i = 0; i < imagenes.size(); i++) {
+                    String activeClass = (i == 0) ? " active" : "";
+                    html.append("                <span class=\"carousel-dot" + activeClass + "\" onclick=\"currentSlide(" + (i+1) + ")\"></span>\n");
+                }
+                html.append("            </div>\n");
+                html.append("        </div>\n");
+            } else {
+                // Mostrar imágenes normales
+                html.append("        <div class=\"imagenes\">\n");
+                for (String img : imagenes) {
+                    html.append("            <img src=\"" + img + "\" alt=\"Imagen\">\n");
+                }
+                html.append("        </div>\n");
+            }
+        }
+    ;
+
+imagen
+    :   ID
+        {
+            String nombreImg = $ID.text;
+            imagenes.add(nombreImg);
+        }
+    ;
+
+texto
+    :   'texto' STRING
+        {
+            String textoContenido = $STRING.text;
+            textoContenido = textoContenido.substring(1, textoContenido.length()-1);
+            html.append("        <div class=\"texto\">\n");
+            html.append("            <p>" + textoContenido + "</p>\n");
+            html.append("        </div>\n");
+        }
+    ;
+
+crud
+    :   'crud' 'inicio'
+        {
+            html.append("        <div class=\"crud-section\">\n");
+            html.append("            <h2>Sección CRUD</h2>\n");
+            html.append("            <p><em>Esta sección será implementada con PHP en la Unidad 4</em></p>\n");
+            campos.clear();
+        }
+        bdd
+        (tabla)+
+        'crud' 'fin'
+        {
+            html.append("        </div>\n");
+            // Generar especificación CRUD
+            crudSpec.append("=== ESPECIFICACIÓN CRUD ===\n\n");
+            crudSpec.append("Base de Datos: " + currentDatabase + "\n");
+            crudSpec.append("Tabla: " + currentTable + "\n");
+            crudSpec.append("Campos:\n");
+            for (String campo : campos) {
+                crudSpec.append("  - " + campo + "\n");
+            }
+            crudSpec.append("\n");
+            crudSpec.append("Operaciones requeridas:\n");
+            crudSpec.append("  - CREATE (Insertar)\n");
+            crudSpec.append("  - READ (Consultar)\n");
+            crudSpec.append("  - UPDATE (Actualizar)\n");
+            crudSpec.append("  - DELETE (Eliminar)\n");
+        }
+    ;
+
+bdd
+    :   'bdd' ID
+        {
+            currentDatabase = $ID.text;
+            html.append("            <p><strong>Base de Datos:</strong> " + currentDatabase + "</p>\n");
+        }
+    ;
+
+tabla
+    :   'tabla' ID
+        {
+            currentTable = $ID.text;
+            html.append("            <p><strong>Tabla:</strong> " + currentTable + "</p>\n");
+            html.append("            <p><strong>Campos:</strong></p>\n");
+            html.append("            <ul>\n");
+        }
+        (campo)+
+        'fintabla'
+        {
+            html.append("            </ul>\n");
+        }
+    ;
+
+campo
+    :   'campo' ID
+        {
+            String nombreCampo = $ID.text;
+            campos.add(nombreCampo);
+            html.append("                <li>" + nombreCampo + "</li>\n");
+        }
+    ;
+
+seccionAcercaDe
+    :   'seccion' 'acercade'
+        {
+            html.append("        <div class=\"acercade\">\n");
+            html.append("            <h2>Acerca de</h2>\n");
+        }
+        (infoAcercaDe)+
+        {
+            html.append("        </div>\n");
+        }
+    ;
+
+infoAcercaDe
+    :   'domicilio' ':' STRING
+        {
+            String domicilio = $STRING.text;
+            domicilio = domicilio.substring(1, domicilio.length()-1);
+            html.append("            <p><strong>Domicilio:</strong> " + domicilio + "</p>\n");
+        }
+    |   'telefono' ':' STRING
+        {
+            String telefono = $STRING.text;
+            telefono = telefono.substring(1, telefono.length()-1);
+            html.append("            <p><strong>Teléfono:</strong> " + telefono + "</p>\n");
+        }
+    |   'email' ':' STRING
+        {
+            String email = $STRING.text;
+            email = email.substring(1, email.length()-1);
+            html.append("            <p><strong>Email:</strong> " + email + "</p>\n");
+        }
+    ;
+
+// TOKENS (ANTLR 3 syntax)
+STRING  :   '"' ( ~('"'|'\r'|'\n') )* '"' ;
+ID      :   ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'.')* ;
+WS      :   (' '|'\t'|'\r'|'\n')+ { $channel = HIDDEN; } ;
+COMMENT :   '//' (~('\r'|'\n'))* { $channel = HIDDEN; } ;

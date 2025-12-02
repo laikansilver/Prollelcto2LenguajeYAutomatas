@@ -1,0 +1,50 @@
+
+carruselImagenes
+    :   'carrusel' 'imagenes' 
+        { 
+            List imageList = new ArrayList();
+        }
+        (ID { imageList.add($ID.text); })+
+        {
+            html.append("        <div class=\"carousel-container\">\n");
+            for (int i = 0; i < imageList.size(); i++) {
+                String activeClass = (i == 0) ? " active" : "";
+                html.append("            <div class=\"carousel-slide" + activeClass + "\">\n");
+                html.append("                <img src=\"" + imageList.get(i) + "\" alt=\"Slide " + (i+1) + "\">\n");
+                html.append("            </div>\n");
+            }
+            html.append("            <div class=\"carousel-controls\">\n");
+            html.append("                <button class=\"carousel-btn\" onclick=\"changeSlide(-1)\">&#10094;</button>\n");
+            html.append("                <button class=\"carousel-btn\" onclick=\"changeSlide(1)\">&#10095;</button>\n");
+            html.append("            </div>\n");
+            html.append("            <div class=\"carousel-indicators\">\n");
+            for (int i = 0; i < imageList.size(); i++) {
+                String activeClass = (i == 0) ? " active" : "";
+                html.append("                <span class=\"carousel-dot" + activeClass + "\" onclick=\"currentSlide(" + (i+1) + ")\"></span>\n");
+            }
+            html.append("            </div>\n");
+            html.append("        </div>\n");
+            html.append("        <script>\n");
+            html.append("            let slideIndex = 1;\n");
+            html.append("            showSlides(slideIndex);\n");
+            html.append("            setInterval(function() { changeSlide(1); }, 5000);\n");
+            html.append("            function changeSlide(n) { showSlides(slideIndex += n); }\n");
+            html.append("            function currentSlide(n) { showSlides(slideIndex = n); }\n");
+            html.append("            function showSlides(n) {\n");
+            html.append("                let slides = document.getElementsByClassName('carousel-slide');\n");
+            html.append("                let dots = document.getElementsByClassName('carousel-dot');\n");
+            html.append("                if (n > slides.length) { slideIndex = 1; }\n");
+            html.append("                if (n < 1) { slideIndex = slides.length; }\n");
+            html.append("                for (let i = 0; i < slides.length; i++) {\n");
+            html.append("                    slides[i].classList.remove('active');\n");
+            html.append("                }\n");
+            html.append("                for (let i = 0; i < dots.length; i++) {\n");
+            html.append("                    dots[i].classList.remove('active');\n");
+            html.append("                }\n");
+            html.append("                slides[slideIndex-1].classList.add('active');\n");
+            html.append("                dots[slideIndex-1].classList.add('active');\n");
+            html.append("            }\n");
+            html.append("        </script>\n");
+        }
+    ;
+

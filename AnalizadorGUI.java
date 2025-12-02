@@ -17,7 +17,8 @@ public class AnalizadorGUI extends JFrame {
     private JButton btnGuardar;
     private JButton btnVerHTML;
     private JTabbedPane tabbedPane;
-    private String ultimoArchivo = "codigo_prueba.txt";
+    private String ultimoArchivo = null;
+    private String carpetaTrabajo = null;
     
     public AnalizadorGUI() {
         setTitle("Compilador de Lenguaje Web CRUD - Ejercicio 10");
@@ -105,14 +106,19 @@ public class AnalizadorGUI extends JFrame {
         panelSuperior.add(panelBotones, BorderLayout.CENTER);
         add(panelSuperior, BorderLayout.NORTH);
         
-        // ===== PANEL CENTRAL: Split con código fuente y resultados =====
-        JSplitPane splitPrincipal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitPrincipal.setDividerLocation(550);
-        splitPrincipal.setResizeWeight(0.5);
+        // ===== PANEL CENTRAL: Split vertical con área de trabajo arriba y consola abajo =====
+        JSplitPane splitVertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitVertical.setDividerLocation(500);
+        splitVertical.setResizeWeight(0.7);
+        
+        // ===== ÁREA SUPERIOR: Split horizontal con código fuente y resultados =====
+        JSplitPane splitHorizontal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        splitHorizontal.setDividerLocation(550);
+        splitHorizontal.setResizeWeight(0.5);
         
         // Panel izquierdo: Código fuente
         JPanel panelIzquierdo = new JPanel(new BorderLayout());
-        panelIzquierdo.setBorder(new EmptyBorder(5, 10, 10, 5));
+        panelIzquierdo.setBorder(new EmptyBorder(5, 10, 5, 5));
         
         JLabel lblCodigoFuente = new JLabel("Código Fuente (Lenguaje Web CRUD)");
         lblCodigoFuente.setFont(new Font("Arial", Font.BOLD, 14));
@@ -127,11 +133,11 @@ public class AnalizadorGUI extends JFrame {
         scrollCodigo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         panelIzquierdo.add(scrollCodigo, BorderLayout.CENTER);
         
-        splitPrincipal.setLeftComponent(panelIzquierdo);
+        splitHorizontal.setLeftComponent(panelIzquierdo);
         
-        // Panel derecho: Tabs con resultados
+        // Panel derecho: Tabs con resultados (HTML, CSS, CRUD)
         JPanel panelDerecho = new JPanel(new BorderLayout());
-        panelDerecho.setBorder(new EmptyBorder(5, 5, 10, 10));
+        panelDerecho.setBorder(new EmptyBorder(5, 5, 5, 10));
         
         JLabel lblResultados = new JLabel("Resultados de la Compilación");
         lblResultados.setFont(new Font("Arial", Font.BOLD, 14));
@@ -139,15 +145,7 @@ public class AnalizadorGUI extends JFrame {
         
         tabbedPane = new JTabbedPane();
         
-        // Tab 1: Resultados de compilación
-        areaResultados = new JTextArea();
-        areaResultados.setFont(new Font("Consolas", Font.PLAIN, 12));
-        areaResultados.setEditable(false);
-        areaResultados.setBackground(new Color(250, 250, 250));
-        JScrollPane scrollResultados = new JScrollPane(areaResultados);
-        tabbedPane.addTab("📋 Consola", scrollResultados);
-        
-        // Tab 2: HTML generado
+        // Tab 1: HTML generado
         areaHTML = new JTextArea();
         areaHTML.setFont(new Font("Consolas", Font.PLAIN, 12));
         areaHTML.setEditable(false);
@@ -155,7 +153,7 @@ public class AnalizadorGUI extends JFrame {
         JScrollPane scrollHTML = new JScrollPane(areaHTML);
         tabbedPane.addTab("🌐 HTML", scrollHTML);
         
-        // Tab 3: CSS generado
+        // Tab 2: CSS generado
         areaCSS = new JTextArea();
         areaCSS.setFont(new Font("Consolas", Font.PLAIN, 12));
         areaCSS.setEditable(false);
@@ -163,7 +161,7 @@ public class AnalizadorGUI extends JFrame {
         JScrollPane scrollCSS = new JScrollPane(areaCSS);
         tabbedPane.addTab("🎨 CSS", scrollCSS);
         
-        // Tab 4: Especificación CRUD
+        // Tab 3: Especificación CRUD
         areaCRUD = new JTextArea();
         areaCRUD.setFont(new Font("Consolas", Font.PLAIN, 12));
         areaCRUD.setEditable(false);
@@ -172,9 +170,29 @@ public class AnalizadorGUI extends JFrame {
         tabbedPane.addTab("💾 CRUD Spec", scrollCRUD);
         
         panelDerecho.add(tabbedPane, BorderLayout.CENTER);
-        splitPrincipal.setRightComponent(panelDerecho);
+        splitHorizontal.setRightComponent(panelDerecho);
         
-        add(splitPrincipal, BorderLayout.CENTER);
+        splitVertical.setTopComponent(splitHorizontal);
+        
+        // ===== ÁREA INFERIOR: Consola =====
+        JPanel panelConsola = new JPanel(new BorderLayout());
+        panelConsola.setBorder(new EmptyBorder(5, 10, 10, 10));
+        
+        JLabel lblConsola = new JLabel("📋 Consola");
+        lblConsola.setFont(new Font("Arial", Font.BOLD, 14));
+        panelConsola.add(lblConsola, BorderLayout.NORTH);
+        
+        areaResultados = new JTextArea();
+        areaResultados.setFont(new Font("Consolas", Font.PLAIN, 12));
+        areaResultados.setEditable(false);
+        areaResultados.setBackground(new Color(250, 250, 250));
+        JScrollPane scrollResultados = new JScrollPane(areaResultados);
+        scrollResultados.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        panelConsola.add(scrollResultados, BorderLayout.CENTER);
+        
+        splitVertical.setBottomComponent(panelConsola);
+        
+        add(splitVertical, BorderLayout.CENTER);
         
         // Panel inferior: Información
         JPanel panelInferior = new JPanel();
@@ -214,17 +232,46 @@ public class AnalizadorGUI extends JFrame {
     
     private void compilar() {
         try {
-            btnCompilar.setEnabled(false);
-            areaResultados.setText("=== Iniciando compilación ===\n\n");
+            // Verificar si el archivo está guardado
+            if (ultimoArchivo == null || carpetaTrabajo == null) {
+                int respuesta = JOptionPane.showConfirmDialog(this,
+                    "El código no ha sido guardado en ninguna carpeta.\n" +
+                    "¿Deseas guardar el archivo antes de compilar?\n\n" +
+                    "Los archivos generados (HTML, CSS, CRUD) se crearán en la misma carpeta.",
+                    "Guardar antes de compilar",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+                
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    guardarArchivo();
+                    // Si después de guardar aún no hay carpeta, cancelar compilación
+                    if (carpetaTrabajo == null) {
+                        areaResultados.append("✗ Compilación cancelada: No se guardó el archivo.\n");
+                        return;
+                    }
+                } else if (respuesta == JOptionPane.NO_OPTION) {
+                    // Compilar en carpeta temporal (directorio actual)
+                    carpetaTrabajo = ".";
+                    areaResultados.append("⚠ ADVERTENCIA: Compilando sin guardar. Los archivos se generarán en el directorio actual.\n\n");
+                } else {
+                    areaResultados.append("✗ Compilación cancelada por el usuario.\n");
+                    return;
+                }
+            }
             
-            // Guardar código en archivo temporal
+            btnCompilar.setEnabled(false);
+            areaResultados.append("=== Iniciando compilación ===\n");
+            areaResultados.append("Carpeta de trabajo: " + carpetaTrabajo + "\n\n");
+            
+            // Guardar código en archivo temporal en la carpeta de trabajo
             String codigoFuente = areaCodigoFuente.getText();
-            FileWriter fw = new FileWriter("temp_codigo.txt");
+            String archivoTemporal = carpetaTrabajo + File.separator + "temp_codigo.txt";
+            FileWriter fw = new FileWriter(archivoTemporal);
             fw.write(codigoFuente);
             fw.close();
             
             // Crear el flujo de entrada
-            CharStream input = new ANTLRFileStream("temp_codigo.txt");
+            CharStream input = new ANTLRFileStream(archivoTemporal);
             
             // Crear el lexer
             WebPageLanguageLexer lexer = new WebPageLanguageLexer(input);
@@ -243,27 +290,28 @@ public class AnalizadorGUI extends JFrame {
             if (parser.getNumberOfSyntaxErrors() == 0) {
                 areaResultados.append("✓ Análisis sintáctico completado sin errores\n\n");
                 
-                // Generar archivos
-                parser.guardarArchivos("salida");
+                // Generar archivos en la carpeta de trabajo
+                String nombreSalida = carpetaTrabajo + File.separator + "salida";
+                parser.guardarArchivos(nombreSalida);
                 
                 // Mostrar HTML generado
-                areaHTML.setText(leerArchivo("salida.html"));
+                areaHTML.setText(leerArchivo(carpetaTrabajo + File.separator + "salida.html"));
                 
                 // Mostrar CSS generado
-                areaCSS.setText(leerArchivo("salida.css"));
+                areaCSS.setText(leerArchivo(carpetaTrabajo + File.separator + "salida.css"));
                 
                 // Mostrar especificación CRUD
-                String crudContent = leerArchivo("salida_crud.txt");
+                String crudContent = leerArchivo(carpetaTrabajo + File.separator + "salida_crud.txt");
                 areaCRUD.setText(crudContent.isEmpty() ? "No se generó especificación CRUD" : crudContent);
                 
                 areaResultados.append("=== ¡COMPILACIÓN EXITOSA! ===\n\n");
-                areaResultados.append("Archivos generados:\n");
+                areaResultados.append("Archivos generados en: " + carpetaTrabajo + "\n");
                 areaResultados.append("  • salida.html\n");
                 areaResultados.append("  • salida.css\n");
                 areaResultados.append("  • salida_crud.txt\n\n");
                 areaResultados.append("Puedes ver el HTML generado en la pestaña correspondiente.\n");
                 
-                tabbedPane.setSelectedIndex(1); // Cambiar a tab HTML
+                tabbedPane.setSelectedIndex(0); // Cambiar a tab HTML
                 
                 JOptionPane.showMessageDialog(this,
                     "Compilación exitosa!\n\nArchivos generados correctamente.",
@@ -323,6 +371,8 @@ public class AnalizadorGUI extends JFrame {
             try {
                 File archivo = fileChooser.getSelectedFile();
                 ultimoArchivo = archivo.getAbsolutePath();
+                carpetaTrabajo = archivo.getParent();
+                
                 BufferedReader br = new BufferedReader(new FileReader(archivo));
                 StringBuilder sb = new StringBuilder();
                 String linea;
@@ -331,7 +381,8 @@ public class AnalizadorGUI extends JFrame {
                 }
                 br.close();
                 areaCodigoFuente.setText(sb.toString());
-                areaResultados.append("Archivo cargado: " + archivo.getName() + "\n");
+                areaResultados.append("✓ Archivo cargado: " + archivo.getName() + "\n");
+                areaResultados.append("  Carpeta: " + carpetaTrabajo + "\n");
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,
                     "Error al abrir el archivo:\n" + ex.getMessage(),
@@ -342,19 +393,31 @@ public class AnalizadorGUI extends JFrame {
     }
     
     private void guardarArchivo() {
-        JFileChooser fileChooser = new JFileChooser(".");
+        JFileChooser fileChooser = new JFileChooser(carpetaTrabajo != null ? carpetaTrabajo : ".");
         fileChooser.setDialogTitle("Guardar archivo de código");
+        
+        // Sugerir nombre si no hay archivo previo
+        if (ultimoArchivo == null) {
+            fileChooser.setSelectedFile(new File("mi_codigo.txt"));
+        }
+        
         int result = fileChooser.showSaveDialog(this);
         
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
                 File archivo = fileChooser.getSelectedFile();
+                ultimoArchivo = archivo.getAbsolutePath();
+                carpetaTrabajo = archivo.getParent();
+                
                 FileWriter fw = new FileWriter(archivo);
                 fw.write(areaCodigoFuente.getText());
                 fw.close();
-                areaResultados.append("Archivo guardado: " + archivo.getName() + "\n");
+                
+                areaResultados.append("✓ Archivo guardado: " + archivo.getName() + "\n");
+                areaResultados.append("  Carpeta: " + carpetaTrabajo + "\n");
+                
                 JOptionPane.showMessageDialog(this,
-                    "Archivo guardado exitosamente.",
+                    "Archivo guardado exitosamente en:\n" + carpetaTrabajo,
                     "Guardado",
                     JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
@@ -368,7 +431,9 @@ public class AnalizadorGUI extends JFrame {
     
     private void abrirEnNavegador() {
         try {
-            File htmlFile = new File("salida.html");
+            String archivoHTML = (carpetaTrabajo != null ? carpetaTrabajo + File.separator : "") + "salida.html";
+            File htmlFile = new File(archivoHTML);
+            
             if (!htmlFile.exists()) {
                 JOptionPane.showMessageDialog(this,
                     "Primero debes compilar el código para generar el archivo HTML.",

@@ -1,0 +1,27 @@
+Inicio pagina
+    titulo "Galería de Productos - Mi Tienda Online"
+    linea simple
+    menu opciones
+    
+    seccion imagenes
+        producto1.jpg
+        producto2.jpg
+        producto3.jpg
+    
+    texto "Bienvenido a nuestra tienda. Aquí encontrarás los mejores productos."
+    
+    crud inicio
+        bdd TiendaOnline
+        tabla Productos
+            campo Nombre
+            campo Precio
+            campo Categoria
+            campo Stock
+        fintabla
+    crud fin
+    
+    seccion acercade
+        domicilio: "Av. Tecnológico 1234, Morelia"
+        telefono: "443-123-4567"
+        
+fin pagina
