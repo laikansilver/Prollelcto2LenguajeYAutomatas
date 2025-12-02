@@ -1,0 +1,35 @@
+=== ESPECIFICACIÓN CRUD ===
+
+Base de Datos: estudiantes_db
+Tabla: Estudiantes
+Campos:
+  - matricula
+  - nombre
+  - apellido
+  - carrera
+  - semestre
+  - promedio
+  - correo
+  - telefono_contacto
+
+Operaciones requeridas:
+  - CREATE (Insertar)
+  - READ (Consultar)
+  - UPDATE (Actualizar)
+  - DELETE (Eliminar)
+=== ESPECIFICACIÓN CRUD ===
+
+Base de Datos: profesores_db
+Tabla: Profesores
+Campos:
+  - id_profesor
+  - nombre_completo
+  - especialidad
+  - departamento
+  - antiguedad
+
+Operaciones requeridas:
+  - CREATE (Insertar)
+  - READ (Consultar)
+  - UPDATE (Actualizar)
+  - DELETE (Eliminar)

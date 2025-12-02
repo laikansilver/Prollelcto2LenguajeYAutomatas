@@ -1,0 +1,60 @@
+Inicio pagina
+
+titulo "Sistema Web Avanzado - Colores, Enlaces y Tabla Interactiva"
+
+linea simple
+
+texto "Bienvenido al sistema avanzado con funcionalidades mejoradas"
+
+menu opciones
+
+linea doble
+
+texto "Enlaces Importantes"
+
+texto "<p style='margin:20px 0;padding:15px;background:#e8f4f8;border-left:4px solid #2196F3'><strong>Google:</strong> <a href='https://www.google.com' target='_blank'>Visitar Google</a></p>"
+
+texto "<p style='margin:20px 0;padding:15px;background:#e8f4f8;border-left:4px solid #2196F3'><strong>GitHub:</strong> <a href='https://www.github.com' target='_blank'>Visitar GitHub</a></p>"
+
+texto "<p style='margin:20px 0;padding:15px;background:#e8f4f8;border-left:4px solid #2196F3'><strong>YouTube:</strong> <a href='https://www.youtube.com' target='_blank'>Visitar YouTube</a></p>"
+
+linea simple
+
+texto "Ejemplos de Colores Personalizados"
+
+texto "<div style='padding:20px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:10px;margin:20px 0'><h3 style='color:white;margin-top:0'>Fondo Degradado Azul-Morado</h3><p>Esta seccion usa un degradado personalizado para el fondo</p></div>"
+
+texto "<div style='padding:20px;background:#2ecc71;color:white;border-radius:10px;margin:20px 0'><h3 style='color:white;margin-top:0'>Fondo Verde con Texto Blanco</h3><p>Perfecto para destacar informacion positiva o exitosa</p></div>"
+
+texto "<div style='padding:20px;background:#e74c3c;color:white;border-radius:10px;margin:20px 0'><h3 style='color:white;margin-top:0'>Fondo Rojo - Alertas</h3><p>Ideal para advertencias o informacion critica</p></div>"
+
+texto "<div style='padding:20px;background:#f39c12;color:white;border-radius:10px;margin:20px 0'><h3 style='color:white;margin-top:0'>Fondo Naranja - Atencion</h3><p>Color llamativo para captar la atencion del usuario</p></div>"
+
+linea simple
+
+seccion imagenes
+        Bullitt.jpg
+		eleonor.jpg
+		super_snake.jpg
+
+linea simple
+
+crud inicio
+    bdd sistema_escolar
+    tabla Estudiantes
+    campo matricula
+    campo nombre_completo
+    campo correo
+    campo carrera
+    campo promedio
+    fintabla
+crud fin
+
+linea simple
+
+seccion acercade
+    domicilio : "Instituto Tecnologico de Morelia"
+    telefono : "443-312-1570"
+    email : "info@tecnm-morelia.edu.mx"
+
+fin pagina

@@ -1,0 +1,70 @@
+Inicio pagina
+
+titulo "Sistema Web Personalizado con Colores, Enlaces y Tabla Interactiva"
+
+linea simple
+
+texto "Bienvenido al sistema avanzado. Esta página incluye colores personalizados, enlaces a sitios externos y una tabla interactiva completamente funcional."
+
+menu opciones
+
+linea doble
+
+texto "Enlaces externos de interés:"
+
+texto "<div style='margin: 20px 0; padding: 15px; background: #e8f4f8; border-left: 4px solid #2196F3;'><strong>Google:</strong> <a href='https://www.google.com' target='_blank' style='color: #2196F3; font-weight: bold;'>Visitar Google</a></div>"
+
+texto "<div style='margin: 20px 0; padding: 15px; background: #e8f4f8; border-left: 4px solid #2196F3;'><strong>GitHub:</strong> <a href='https://www.github.com' target='_blank' style='color: #2196F3; font-weight: bold;'>Visitar GitHub</a></div>"
+
+texto "<div style='margin: 20px 0; padding: 15px; background: #e8f4f8; border-left: 4px solid #2196F3;'><strong>YouTube:</strong> <a href='https://www.youtube.com' target='_blank' style='color: #2196F3; font-weight: bold;'>Visitar YouTube</a></div>"
+
+linea simple
+
+texto "Tabla Interactiva de Estudiantes - Puedes Registrar, Editar y Eliminar Datos"
+
+texto "<style>.tabla-interactiva { margin: 30px 0; padding: 20px; border: 2px solid #ddd; border-radius: 5px; } .tabla-interactiva table { width: 100%; border-collapse: collapse; margin-top: 20px; } .tabla-interactiva th, .tabla-interactiva td { padding: 12px; text-align: left; border: 1px solid #ddd; } .tabla-interactiva th { background-color: #4CAF50; color: white; } .tabla-interactiva tr:nth-child(even) { background-color: #f9f9f9; } .tabla-interactiva input, .tabla-interactiva button { padding: 8px 12px; margin: 5px; border: 1px solid #ddd; border-radius: 3px; } .tabla-interactiva button { background-color: #4CAF50; color: white; cursor: pointer; border: none; } .tabla-interactiva button:hover { background-color: #45a049; } .btn-editar { background-color: #2196F3 !important; } .btn-editar:hover { background-color: #0b7dda !important; } .btn-eliminar { background-color: #f44336 !important; } .btn-eliminar:hover { background-color: #da190b !important; }</style>"
+
+texto "<div class='tabla-interactiva'><h2>Gestión de Estudiantes</h2><div><h3>Registrar Nuevo Estudiante</h3><input type='text' id='input_matricula' placeholder='Matrícula'><input type='text' id='input_nombre' placeholder='Nombre'><input type='text' id='input_apellido' placeholder='Apellido'><input type='text' id='input_carrera' placeholder='Carrera'><input type='text' id='input_promedio' placeholder='Promedio'><button onclick='agregarEstudiante()'>Agregar Estudiante</button></div><table id='tabla_estudiantes'><thead><tr><th>Matrícula</th><th>Nombre</th><th>Apellido</th><th>Carrera</th><th>Promedio</th><th>Acciones</th></tr></thead><tbody id='tbody_estudiantes'></tbody></table><script>let estudiantes = [];function agregarEstudiante() { let estudiante = { matricula: document.getElementById('input_matricula').value, nombre: document.getElementById('input_nombre').value, apellido: document.getElementById('input_apellido').value, carrera: document.getElementById('input_carrera').value, promedio: document.getElementById('input_promedio').value }; if (estudiante.matricula && estudiante.nombre) { estudiantes.push(estudiante); document.getElementById('input_matricula').value = ''; document.getElementById('input_nombre').value = ''; document.getElementById('input_apellido').value = ''; document.getElementById('input_carrera').value = ''; document.getElementById('input_promedio').value = ''; actualizarTabla(); } else { alert('Por favor ingrese al menos Matrícula y Nombre'); }}function actualizarTabla() { let tbody = document.getElementById('tbody_estudiantes'); tbody.innerHTML = ''; estudiantes.forEach((estudiante, index) => { let tr = document.createElement('tr'); tr.innerHTML = '<td>' + estudiante.matricula + '</td><td>' + estudiante.nombre + '</td><td>' + estudiante.apellido + '</td><td>' + estudiante.carrera + '</td><td>' + estudiante.promedio + '</td><td><button class=\"btn-editar\" onclick=\"editarEstudiante(' + index + ')\">Editar</button><button class=\"btn-eliminar\" onclick=\"eliminarEstudiante(' + index + ')\">Eliminar</button></td>'; tbody.appendChild(tr); });}function editarEstudiante(index) { let estudiante = estudiantes[index]; let nueva_matricula = prompt('Matrícula:', estudiante.matricula); if (nueva_matricula !== null) estudiante.matricula = nueva_matricula; let nuevo_nombre = prompt('Nombre:', estudiante.nombre); if (nuevo_nombre !== null) estudiante.nombre = nuevo_nombre; let nuevo_apellido = prompt('Apellido:', estudiante.apellido); if (nuevo_apellido !== null) estudiante.apellido = nuevo_apellido; let nueva_carrera = prompt('Carrera:', estudiante.carrera); if (nueva_carrera !== null) estudiante.carrera = nueva_carrera; let nuevo_promedio = prompt('Promedio:', estudiante.promedio); if (nuevo_promedio !== null) estudiante.promedio = nuevo_promedio; actualizarTabla();}function eliminarEstudiante(index) { if (confirm('¿Eliminar este estudiante?')) { estudiantes.splice(index, 1); actualizarTabla(); }}</script></div>"
+
+linea doble
+
+texto "Personalización de Colores"
+
+texto "<div style='padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; margin: 20px 0;'><h3 style='color: white; margin-top: 0;'>Sección con Fondo Degradado Personalizado</h3><p>Este es un ejemplo de cómo puedes personalizar los colores de fondo y texto en tu página. El fondo tiene un degradado morado/azul y el texto es blanco para buen contraste.</p></div>"
+
+texto "<div style='padding: 20px; background: #2ecc71; color: white; border-radius: 10px; margin: 20px 0;'><h3 style='color: white; margin-top: 0;'>Sección Verde con Texto Blanco</h3><p>Esta sección demuestra un fondo verde sólido (#2ecc71) con texto blanco, ideal para destacar información importante.</p></div>"
+
+texto "<div style='padding: 20px; background: #e74c3c; color: white; border-radius: 10px; margin: 20px 0;'><h3 style='color: white; margin-top: 0;'>Sección Roja - Alertas</h3><p>Fondo rojo (#e74c3c) perfecto para advertencias o información crítica que necesita llamar la atención del usuario.</p></div>"
+
+linea simple
+
+seccion imagenes
+    estudiante1.jpg
+    estudiante2.jpg
+    laboratorio.jpg
+
+linea simple
+
+crud inicio
+    bdd sistema_escolar
+    tabla Estudiantes
+    campo matricula
+    campo nombre_completo
+    campo email
+    campo telefono
+    campo carrera
+    fintabla
+crud fin
+
+linea simple
+
+seccion acercade
+    domicilio : "Instituto Tecnológico de Morelia, Av. Tecnológico 1500"
+    telefono : "443-312-1570"
+    email : "info@tecnm-morelia.edu.mx"
+
+linea simple
+
+texto "Gracias por visitar nuestro sistema. Todos los datos son almacenados localmente en tu navegador."
+
+fin pagina

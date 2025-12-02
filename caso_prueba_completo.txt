@@ -1,0 +1,61 @@
+Inicio pagina
+
+titulo "Sistema de Gestión Escolar - Demostración Completa"
+
+linea simple
+
+menu opciones
+
+linea doble
+
+texto "Bienvenido al sistema integral de gestión escolar. Esta página demuestra todas las funcionalidades disponibles incluyendo navegación, galerías de imágenes, formularios CRUD y sección informativa."
+
+seccion imagenes
+        Bullitt.jpg
+		eleonor.jpg
+		super_snake.jpg
+linea simple
+
+texto "A continuación se presenta el módulo de gestión de estudiantes con operaciones completas de base de datos:"
+
+crud inicio
+    bdd estudiantes_db
+    tabla Estudiantes
+    campo matricula
+    campo nombre
+    campo apellido
+    campo carrera
+    campo semestre
+    campo promedio
+    campo correo
+    campo telefono_contacto
+    fintabla
+crud fin
+
+linea doble
+
+texto "El sistema también permite gestionar información de profesores y materias de forma sencilla e intuitiva."
+
+crud inicio
+    bdd profesores_db
+    tabla Profesores
+    campo id_profesor
+    campo nombre_completo
+    campo especialidad
+    campo departamento
+    campo antiguedad
+    fintabla
+crud fin
+
+linea simple
+
+seccion acercade
+    domicilio : "Avenida Tecnológico 1500, Lomas de Santiaguito, Morelia, Michoacán"
+    telefono : "443-312-1570"
+    email : "contacto@tecnm-morelia.edu.mx"
+
+linea simple
+
+texto "Gracias por utilizar nuestro sistema. Para más información contacte al departamento de servicios escolares."
+
+fin pagina
