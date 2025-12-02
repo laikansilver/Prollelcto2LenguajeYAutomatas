@@ -46,30 +46,54 @@ public class AnalizadorGUI extends JFrame {
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         
         btnAbrir = new JButton("Abrir Archivo");
-        btnAbrir.setIcon(UIManager.getIcon("FileView.directoryIcon"));
+        btnAbrir.setBackground(new Color(52, 152, 219));
+        btnAbrir.setForeground(Color.WHITE);
+        btnAbrir.setOpaque(true);
+        btnAbrir.setBorderPainted(false);
+        btnAbrir.setFocusPainted(false);
+        btnAbrir.setFont(new Font("Arial", Font.BOLD, 12));
+        btnAbrir.setPreferredSize(new Dimension(150, 35));
         btnAbrir.addActionListener(e -> abrirArchivo());
         
         btnGuardar = new JButton("Guardar Archivo");
-        btnGuardar.setIcon(UIManager.getIcon("FileView.floppyDriveIcon"));
+        btnGuardar.setBackground(new Color(41, 128, 185));
+        btnGuardar.setForeground(Color.WHITE);
+        btnGuardar.setOpaque(true);
+        btnGuardar.setBorderPainted(false);
+        btnGuardar.setFocusPainted(false);
+        btnGuardar.setFont(new Font("Arial", Font.BOLD, 12));
+        btnGuardar.setPreferredSize(new Dimension(160, 35));
         btnGuardar.addActionListener(e -> guardarArchivo());
         
-        btnCompilar = new JButton("Compilar");
-        btnCompilar.setIcon(UIManager.getIcon("OptionPane.okIcon"));
-        btnCompilar.setBackground(new Color(46, 204, 113));
+        btnCompilar = new JButton("► COMPILAR");
+        btnCompilar.setBackground(new Color(39, 174, 96));
+        
         btnCompilar.setForeground(Color.WHITE);
+        btnCompilar.setOpaque(true);
+        btnCompilar.setBorderPainted(false);
         btnCompilar.setFocusPainted(false);
         btnCompilar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnCompilar.setPreferredSize(new Dimension(150, 35));
         btnCompilar.addActionListener(e -> compilar());
         
         btnLimpiar = new JButton("Limpiar");
-        btnLimpiar.setIcon(UIManager.getIcon("FileView.fileIcon"));
+        btnLimpiar.setBackground(new Color(231, 76, 60));
+        btnLimpiar.setForeground(Color.WHITE);
+        btnLimpiar.setOpaque(true);
+        btnLimpiar.setBorderPainted(false);
+        btnLimpiar.setFocusPainted(false);
+        btnLimpiar.setFont(new Font("Arial", Font.BOLD, 12));
+        btnLimpiar.setPreferredSize(new Dimension(120, 35));
         btnLimpiar.addActionListener(e -> limpiar());
         
         btnVerHTML = new JButton("Ver en Navegador");
-        btnVerHTML.setIcon(UIManager.getIcon("FileView.computerIcon"));
-        btnVerHTML.setBackground(new Color(52, 152, 219));
+        btnVerHTML.setBackground(new Color(142, 68, 173));
         btnVerHTML.setForeground(Color.WHITE);
+        btnVerHTML.setOpaque(true);
+        btnVerHTML.setBorderPainted(false);
         btnVerHTML.setFocusPainted(false);
+        btnVerHTML.setFont(new Font("Arial", Font.BOLD, 12));
+        btnVerHTML.setPreferredSize(new Dimension(180, 35));
         btnVerHTML.addActionListener(e -> abrirEnNavegador());
         
         panelBotones.add(btnAbrir);
@@ -364,8 +388,9 @@ public class AnalizadorGUI extends JFrame {
     }
     
     public static void main(String[] args) {
+        // No usar Look and Feel del sistema para que los colores se vean correctamente
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
