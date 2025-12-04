@@ -1,0 +1,93 @@
+Inicio pagina
+
+titulo "Sistema Completo - Colores, Enlaces y Tabla Interactiva"
+
+linea simple
+
+texto "Bienvenido al sistema web avanzado que integra todas las funcionalidades en una sola pagina"
+
+menu opciones
+
+linea doble
+
+texto "SECCION 1: Enlaces a Sitios Externos"
+
+texto "<p style='margin:20px 0;padding:15px;background:#e8f4f8;border-left:4px solid #2196F3'><strong>Google:</strong> <a href='https://www.google.com' target='_blank' style='color:#2196F3;font-weight:bold;text-decoration:none'>Visitar Google</a></p>"
+
+texto "<p style='margin:20px 0;padding:15px;background:#e8f4f8;border-left:4px solid #2196F3'><strong>GitHub:</strong> <a href='https://www.github.com' target='_blank' style='color:#2196F3;font-weight:bold;text-decoration:none'>Visitar GitHub</a></p>"
+
+texto "<p style='margin:20px 0;padding:15px;background:#e8f4f8;border-left:4px solid #2196F3'><strong>YouTube:</strong> <a href='https://www.youtube.com' target='_blank' style='color:#2196F3;font-weight:bold;text-decoration:none'>Visitar YouTube</a></p>"
+
+texto "<p style='margin:20px 0;padding:15px;background:#e8f4f8;border-left:4px solid #2196F3'><strong>Wikipedia:</strong> <a href='https://www.wikipedia.org' target='_blank' style='color:#2196F3;font-weight:bold;text-decoration:none'>Visitar Wikipedia</a></p>"
+
+linea simple
+
+texto "SECCION 2: Ejemplos de Colores Personalizados"
+
+texto "<div style='padding:20px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:10px;margin:20px 0'><h3 style='color:white;margin-top:0'>Fondo Degradado Azul-Morado</h3><p>Esta seccion usa un degradado personalizado para el fondo con colores #667eea y #764ba2. Ideal para encabezados llamativos.</p></div>"
+
+texto "<div style='padding:20px;background:#2ecc71;color:white;border-radius:10px;margin:20px 0'><h3 style='color:white;margin-top:0'>Fondo Verde - Exito</h3><p>Color verde solido #2ecc71 perfecto para mensajes de exito, confirmaciones o informacion positiva.</p></div>"
+
+texto "<div style='padding:20px;background:#e74c3c;color:white;border-radius:10px;margin:20px 0'><h3 style='color:white;margin-top:0'>Fondo Rojo - Alerta</h3><p>Color rojo #e74c3c ideal para advertencias, errores o informacion critica que requiere atencion inmediata.</p></div>"
+
+texto "<div style='padding:20px;background:#f39c12;color:white;border-radius:10px;margin:20px 0'><h3 style='color:white;margin-top:0'>Fondo Naranja - Atencion</h3><p>Color naranja #f39c12 perfecto para captar la atencion del usuario en avisos importantes.</p></div>"
+
+texto "<div style='padding:20px;background:#3498db;color:white;border-radius:10px;margin:20px 0'><h3 style='color:white;margin-top:0'>Fondo Azul - Informacion</h3><p>Color azul #3498db excelente para informacion general y contenido informativo.</p></div>"
+
+linea simple
+
+texto "SECCION 3: Galeria de Imagenes"
+
+seccion imagenes
+    producto1.jpg
+    producto2.jpg
+    producto3.jpg
+    estudiante1.jpg
+    estudiante2.jpg
+
+linea simple
+
+texto "SECCION 4: Tabla Interactiva de Base de Datos"
+
+texto "<style>.tabla-interactiva{margin:30px 0;padding:25px;border:3px solid #667eea;border-radius:15px;background:#f9f9f9}.tabla-interactiva h2{color:#667eea;margin-bottom:20px;text-align:center}.form-registro{background:white;padding:20px;border-radius:10px;margin-bottom:25px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}.form-registro h3{color:#667eea;margin-bottom:15px}.form-grupo{display:inline-block;margin:5px}.form-grupo input{padding:10px;border:2px solid #ddd;border-radius:5px;font-size:14px;width:160px;transition:border 0.3s}.form-grupo input:focus{border-color:#667eea;outline:none}.tabla-interactiva table{width:100%;border-collapse:collapse;margin-top:20px;background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.1)}.tabla-interactiva thead{background:linear-gradient(135deg,#667eea,#764ba2);color:white}.tabla-interactiva th,.tabla-interactiva td{padding:15px;text-align:left;border-bottom:1px solid #ddd}.tabla-interactiva tr:hover{background:#f5f5f5}.tabla-interactiva tr:nth-child(even){background:#fafafa}.btn{padding:10px 18px;border:none;border-radius:5px;cursor:pointer;font-size:14px;font-weight:bold;transition:all 0.3s;margin:2px}.btn-agregar{background:#4CAF50;color:white}.btn-agregar:hover{background:#45a049;transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.2)}.btn-editar{background:#2196F3;color:white}.btn-editar:hover{background:#0b7dda}.btn-eliminar{background:#f44336;color:white}.btn-eliminar:hover{background:#da190b}.vacio{text-align:center;padding:40px;color:#999;font-style:italic}.stats{display:flex;justify-content:space-around;margin-bottom:25px}.stat-card{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:10px;text-align:center;flex:1;margin:0 10px;box-shadow:0 4px 10px rgba(0,0,0,0.2)}.stat-card h3{font-size:36px;margin:0 0 5px 0}.stat-card p{font-size:14px;opacity:0.9;margin:0}</style>"
+
+texto "<div class='tabla-interactiva'><h2>Sistema de Gestion de Estudiantes</h2><div class='stats'><div class='stat-card'><h3 id='total-registros'>0</h3><p>Total de Registros</p></div><div class='stat-card'><h3 id='ultimo-id'>0</h3><p>Ultimo ID</p></div></div><div class='form-registro'><h3>Registrar Nuevo Estudiante</h3><div class='form-grupo'><input type='text' id='input_matricula' placeholder='Matricula'/></div><div class='form-grupo'><input type='text' id='input_nombre' placeholder='Nombre'/></div><div class='form-grupo'><input type='text' id='input_apellido' placeholder='Apellido'/></div><div class='form-grupo'><input type='text' id='input_carrera' placeholder='Carrera'/></div><div class='form-grupo'><input type='number' step='0.01' id='input_promedio' placeholder='Promedio'/></div><div class='form-grupo'><input type='email' id='input_correo' placeholder='Correo'/></div><div class='form-grupo'><button class='btn btn-agregar' onclick='agregarEstudiante()'>Agregar Estudiante</button></div></div><table><thead><tr><th>ID</th><th>Matricula</th><th>Nombre</th><th>Apellido</th><th>Carrera</th><th>Promedio</th><th>Correo</th><th>Acciones</th></tr></thead><tbody id='tbody_estudiantes'><tr class='vacio'><td colspan='8'>No hay registros. Agrega el primer estudiante.</td></tr></tbody></table><script>let estudiantes=[];let idCounter=1;</script></div>"
+
+texto "<script>window.onload=function(){const datosGuardados=localStorage.getItem('estudiantes');if(datosGuardados){estudiantes=JSON.parse(datosGuardados);idCounter=estudiantes.length>0?Math.max(...estudiantes.map(e=>e.id))+1:1;actualizarTabla()}};</script>"
+
+texto "<script>function agregarEstudiante(){const estudiante={id:idCounter++,matricula:document.getElementById('input_matricula').value,nombre:document.getElementById('input_nombre').value,apellido:document.getElementById('input_apellido').value,carrera:document.getElementById('input_carrera').value,promedio:document.getElementById('input_promedio').value,correo:document.getElementById('input_correo').value};if(!estudiante.matricula||!estudiante.nombre){alert('Por favor ingrese al menos Matricula y Nombre');return}estudiantes.push(estudiante);guardarDatos();document.getElementById('input_matricula').value='';document.getElementById('input_nombre').value='';document.getElementById('input_apellido').value='';document.getElementById('input_carrera').value='';document.getElementById('input_promedio').value='';document.getElementById('input_correo').value='';actualizarTabla()}</script>"
+
+texto "<script>function actualizarTabla(){const tbody=document.getElementById('tbody_estudiantes');if(estudiantes.length===0){tbody.innerHTML='<tr><td colspan=8>No hay registros</td></tr>'}else{tbody.innerHTML='';estudiantes.forEach(function(estudiante,index){const tr=document.createElement('tr');const td1=document.createElement('td');td1.innerHTML='<strong>'+estudiante.id+'</strong>';tr.appendChild(td1);const td2=document.createElement('td');td2.textContent=estudiante.matricula;tr.appendChild(td2);const td3=document.createElement('td');td3.textContent=estudiante.nombre;tr.appendChild(td3);const td4=document.createElement('td');td4.textContent=estudiante.apellido;tr.appendChild(td4);const td5=document.createElement('td');td5.textContent=estudiante.carrera;tr.appendChild(td5);const td6=document.createElement('td');td6.textContent=estudiante.promedio;tr.appendChild(td6);const td7=document.createElement('td');td7.textContent=estudiante.correo;tr.appendChild(td7);const td8=document.createElement('td');const btnE=document.createElement('button');btnE.className='btn btn-editar';btnE.textContent='Editar';btnE.onclick=function(){editarEstudiante(index)};td8.appendChild(btnE);const btnD=document.createElement('button');btnD.className='btn btn-eliminar';btnD.textContent='Eliminar';btnD.onclick=function(){eliminarEstudiante(index)};td8.appendChild(btnD);tr.appendChild(td8);tbody.appendChild(tr)})}document.getElementById('total-registros').textContent=estudiantes.length;document.getElementById('ultimo-id').textContent=idCounter-1}</script>"
+
+texto "<script>function editarEstudiante(index){const estudiante=estudiantes[index];const nueva_matricula=prompt('Matricula:',estudiante.matricula);if(nueva_matricula!==null&&nueva_matricula!=='')estudiante.matricula=nueva_matricula;const nuevo_nombre=prompt('Nombre:',estudiante.nombre);if(nuevo_nombre!==null&&nuevo_nombre!=='')estudiante.nombre=nuevo_nombre;const nuevo_apellido=prompt('Apellido:',estudiante.apellido);if(nuevo_apellido!==null)estudiante.apellido=nuevo_apellido;const nueva_carrera=prompt('Carrera:',estudiante.carrera);if(nueva_carrera!==null)estudiante.carrera=nueva_carrera;const nuevo_promedio=prompt('Promedio:',estudiante.promedio);if(nuevo_promedio!==null)estudiante.promedio=nuevo_promedio;const nuevo_correo=prompt('Correo:',estudiante.correo);if(nuevo_correo!==null)estudiante.correo=nuevo_correo;guardarDatos();actualizarTabla()}function eliminarEstudiante(index){if(confirm('Esta seguro de eliminar este estudiante?')){estudiantes.splice(index,1);guardarDatos();actualizarTabla()}}function guardarDatos(){localStorage.setItem('estudiantes',JSON.stringify(estudiantes))}</script>"
+
+linea doble
+
+texto "SECCION 5: Modulo CRUD Tradicional"
+
+crud inicio
+    bdd sistema_escolar
+    tabla Profesores
+    campo id_profesor
+    campo nombre_completo
+    campo especialidad
+    campo departamento
+    campo antiguedad
+    campo extension
+    fintabla
+crud fin
+
+linea simple
+
+texto "SECCION 6: Informacion de Contacto"
+
+seccion acercade
+    domicilio : "Instituto Tecnologico de Morelia, Av. Tecnologico 1500, Morelia, Michoacan"
+    telefono : "443-312-1570"
+    email : "contacto@tecnm-morelia.edu.mx"
+
+linea simple
+
+texto "<div style='padding:25px;background:linear-gradient(135deg,#11998e,#38ef7d);color:white;border-radius:15px;text-align:center;margin:30px 0;box-shadow:0 5px 15px rgba(0,0,0,0.2)'><h2 style='color:white;margin-top:0'>Gracias por Visitar</h2><p style='font-size:16px;margin:10px 0'>Este sistema demuestra todas las funcionalidades avanzadas: colores personalizados, enlaces externos y tabla interactiva con base de datos.</p><p style='font-size:14px;opacity:0.9'>Los datos se guardan automaticamente en tu navegador usando localStorage.</p></div>"
+
+fin pagina

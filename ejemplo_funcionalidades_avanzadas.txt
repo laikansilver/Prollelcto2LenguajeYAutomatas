@@ -1,0 +1,44 @@
+Inicio pagina
+
+titulo "Sistema Web Avanzado con Colores y Enlaces"
+
+linea simple
+
+texto "Este es un ejemplo que demuestra las funcionalidades básicas existentes y prepara para agregar nuevas características como colores personalizados, enlaces externos y tablas interactivas."
+
+menu opciones
+
+linea doble
+
+seccion imagenes
+    producto1.jpg
+    producto2.jpg
+    producto3.jpg
+
+linea simple
+
+texto "A continuación se presenta un módulo CRUD tradicional que puede ser mejorado con una tabla interactiva JavaScript."
+
+crud inicio
+    bdd tienda_online
+    tabla Productos
+    campo id_producto
+    campo nombre_producto
+    campo precio
+    campo stock
+    campo categoria
+    fintabla
+crud fin
+
+linea simple
+
+seccion acercade
+    domicilio : "Av. Principal 123, Morelia, Michoacán"
+    telefono : "443-123-4567"
+    email : "info@mitienda.com"
+
+linea simple
+
+texto "Gracias por visitar nuestra página. Para más información visite nuestras redes sociales."
+
+fin pagina

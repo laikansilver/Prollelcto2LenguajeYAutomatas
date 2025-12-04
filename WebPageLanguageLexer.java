@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 WebPageLanguage.g 2025-12-01 10:22:19
+// $ANTLR 3.5.2 WebPageLanguage.g 2025-12-02 10:47:02
 
 import org.antlr.runtime.*;
 import java.util.Stack;

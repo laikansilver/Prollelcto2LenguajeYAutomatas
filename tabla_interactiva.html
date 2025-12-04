@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla Interactiva - Sistema de Base de Datos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-registro {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 2px solid #667eea;
+        }
+        
+        .form-registro h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .form-grupo {
+            display: inline-block;
+            margin: 5px;
+        }
+        
+        .form-grupo input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 150px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn-agregar {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-agregar:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-editar {
+            background: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            font-size: 12px;
+            margin: 2px;
+        }
+        
+        .btn-editar:hover {
+            background: #0b7dda;
+        }
+        
+        .btn-eliminar {
+            background: #f44336;
+            color: white;
+            padding: 8px 15px;
+            font-size: 12px;
+            margin: 2px;
+        }
+        
+        .btn-eliminar:hover {
+            background: #da190b;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .vacio {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-style: italic;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+        }
+        
+        .stat-card h3 {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Sistema de Base de Datos Interactivo</h1>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="total-registros">0</h3>
+                <p>Total de Registros</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="ultimo-id">0</h3>
+                <p>Último ID</p>
+            </div>
+        </div>
+        
+        <div class="form-registro">
+            <h2>➕ Registrar Nuevo Estudiante</h2>
+            <div class="form-grupo">
+                <input type="text" id="input_matricula" placeholder="Matrícula" />
+            </div>
+            <div class="form-grupo">
+                <input type="text" id="input_nombre" placeholder="Nombre" />
+            </div>
+            <div class="form-grupo">
+                <input type="text" id="input_apellido" placeholder="Apellido" />
+            </div>
+            <div class="form-grupo">
+                <input type="text" id="input_carrera" placeholder="Carrera" />
+            </div>
+            <div class="form-grupo">
+                <input type="number" step="0.01" id="input_promedio" placeholder="Promedio" />
+            </div>
+            <div class="form-grupo">
+                <input type="email" id="input_correo" placeholder="Correo" />
+            </div>
+            <div class="form-grupo">
+                <button class="btn btn-agregar" onclick="agregarEstudiante()">✓ Agregar Estudiante</button>
+            </div>
+        </div>
+        
+        <table id="tabla_estudiantes">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Matrícula</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Carrera</th>
+                    <th>Promedio</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tbody_estudiantes">
+                <tr class="vacio">
+                    <td colspan="8">No hay registros. Agrega el primer estudiante usando el formulario arriba.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <script>
+        let estudiantes = [];
+        let idCounter = 1;
+        
+        // Cargar datos del localStorage al inicio
+        window.onload = function() {
+            const datosGuardados = localStorage.getItem('estudiantes');
+            if (datosGuardados) {
+                estudiantes = JSON.parse(datosGuardados);
+                idCounter = estudiantes.length > 0 ? Math.max(...estudiantes.map(e => e.id)) + 1 : 1;
+                actualizarTabla();
+            }
+        };
+        
+        function agregarEstudiante() {
+            const estudiante = {
+                id: idCounter++,
+                matricula: document.getElementById('input_matricula').value,
+                nombre: document.getElementById('input_nombre').value,
+                apellido: document.getElementById('input_apellido').value,
+                carrera: document.getElementById('input_carrera').value,
+                promedio: document.getElementById('input_promedio').value,
+                correo: document.getElementById('input_correo').value
+            };
+            
+            if (!estudiante.matricula || !estudiante.nombre) {
+                alert('⚠️ Por favor ingrese al menos Matrícula y Nombre');
+                return;
+            }
+            
+            estudiantes.push(estudiante);
+            guardarDatos();
+            
+            // Limpiar formulario
+            document.getElementById('input_matricula').value = '';
+            document.getElementById('input_nombre').value = '';
+            document.getElementById('input_apellido').value = '';
+            document.getElementById('input_carrera').value = '';
+            document.getElementById('input_promedio').value = '';
+            document.getElementById('input_correo').value = '';
+            
+            actualizarTabla();
+        }
+        
+        function actualizarTabla() {
+            const tbody = document.getElementById('tbody_estudiantes');
+            
+            if (estudiantes.length === 0) {
+                tbody.innerHTML = '<tr class="vacio"><td colspan="8">No hay registros. Agrega el primer estudiante usando el formulario arriba.</td></tr>';
+            } else {
+                tbody.innerHTML = '';
+                estudiantes.forEach((estudiante, index) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${estudiante.id}</strong></td>
+                        <td>${estudiante.matricula}</td>
+                        <td>${estudiante.nombre}</td>
+                        <td>${estudiante.apellido}</td>
+                        <td>${estudiante.carrera}</td>
+                        <td>${estudiante.promedio}</td>
+                        <td>${estudiante.correo}</td>
+                        <td>
+                            <button class="btn btn-editar" onclick="editarEstudiante(${index})">✏️ Editar</button>
+                            <button class="btn btn-eliminar" onclick="eliminarEstudiante(${index})">🗑️ Eliminar</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+            
+            // Actualizar estadísticas
+            document.getElementById('total-registros').textContent = estudiantes.length;
+            document.getElementById('ultimo-id').textContent = idCounter - 1;
+        }
+        
+        function editarEstudiante(index) {
+            const estudiante = estudiantes[index];
+            
+            const nueva_matricula = prompt('Matrícula:', estudiante.matricula);
+            if (nueva_matricula !== null && nueva_matricula !== '') estudiante.matricula = nueva_matricula;
+            
+            const nuevo_nombre = prompt('Nombre:', estudiante.nombre);
+            if (nuevo_nombre !== null && nuevo_nombre !== '') estudiante.nombre = nuevo_nombre;
+            
+            const nuevo_apellido = prompt('Apellido:', estudiante.apellido);
+            if (nuevo_apellido !== null) estudiante.apellido = nuevo_apellido;
+            
+            const nueva_carrera = prompt('Carrera:', estudiante.carrera);
+            if (nueva_carrera !== null) estudiante.carrera = nueva_carrera;
+            
+            const nuevo_promedio = prompt('Promedio:', estudiante.promedio);
+            if (nuevo_promedio !== null) estudiante.promedio = nuevo_promedio;
+            
+            const nuevo_correo = prompt('Correo:', estudiante.correo);
+            if (nuevo_correo !== null) estudiante.correo = nuevo_correo;
+            
+            guardarDatos();
+            actualizarTabla();
+        }
+        
+        function eliminarEstudiante(index) {
+            if (confirm('¿Está seguro de eliminar este estudiante?')) {
+                estudiantes.splice(index, 1);
+                guardarDatos();
+                actualizarTabla();
+            }
+        }
+        
+        function guardarDatos() {
+            localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
+        }
+    </script>
+</body>
+</html>

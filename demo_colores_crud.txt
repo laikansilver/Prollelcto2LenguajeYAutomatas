@@ -1,14 +1,13 @@
 === ESPECIFICACIÓN CRUD ===
 
 Base de Datos: sistema_escolar
-Tabla: Profesores
+Tabla: Estudiantes
 Campos:
-  - id_profesor
+  - matricula
   - nombre_completo
-  - especialidad
-  - departamento
-  - antiguedad
-  - extension
+  - correo
+  - carrera
+  - promedio
 
 Operaciones requeridas:
   - CREATE (Insertar)
